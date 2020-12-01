@@ -1,4 +1,5 @@
 import pygame
+from Init import Init
 
 pygame.init()
 size = [1920, 980]
@@ -28,7 +29,6 @@ def draw_text(surf, text, size, x, y):  # Выводим текст что ту�
     text_rect.midtop = (x, y)
     surf.blit(text_surface, text_rect)
     # blit почему то не работает спросил у препода, жду...
-    # Кофе кста вкусный
 
 
 running = True
@@ -48,6 +48,9 @@ while running:
     draw_text(fone, 'Score!:', 100, 1200, 100)
     draw_text(fone, str(score), 100, 1350, 100)
     pygame.draw.rect(screen, [0, 0, 0], attack_button)
+    # Тот самый
+    init = Init(screen)
+
     pygame.display.update()
     pygame.display.flip()
     clock.tick(30)
