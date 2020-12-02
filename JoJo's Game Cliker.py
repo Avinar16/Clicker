@@ -1,11 +1,11 @@
 import pygame
-from Init import Init
+from Classes.Init import Init
 
 pygame.init()
 size = [1920, 980]
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
-sound = pygame.mixer.Sound('Music\Main Theme maybe.wav')
+sound = pygame.mixer.Sound('Music\Main Theme.wav')
 sound.set_volume(0.01)
 pygame.display.set_caption("JoJo's Cliker")
 
