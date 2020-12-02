@@ -5,5 +5,3 @@ class Score_Counter:
         Score_surfase = pygame.Surface((200, 200))
         Score_surfase.fill([255, 255, 255])
         screen.blit(Score_surfase, cords)
-
-
