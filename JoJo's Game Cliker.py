@@ -1,5 +1,6 @@
 import pygame
 from Classes.Init import Init
+from Classes.Score_Counter import Score_Counter
 
 pygame.init()
 size = [1920, 980]
@@ -29,16 +30,21 @@ running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            # For tests. May be removed
+            Score_Counter.cleanup(score)
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            score += 1
+            Score_Counter.add_coin(score)
+
         sound.play()
     screen.fill((200, 100, 0))
     # Уже хз на что два след коммента но пусть будут
     # draw_text(click_button, "Click!", 20, 10, 10)
     # text = font_name.render(str(score), True, (255, 255, 255))
     # Тот самый
+
     init = Init(screen)
+    score = Score_Counter(screen)
     pygame.display.update()
     pygame.display.flip()
     clock.tick(30)

@@ -16,6 +16,6 @@ class Fight_scene:
         click_button = pygame.Rect(200, 870, 250, 100)
         pygame.draw.rect(screen, [26, 240, 150], click_button)
         pygame.draw.rect(screen, [0, 0, 0], attack_button)
-        self.jump_button = Button.create_button(self, fone, Color_green, 1800, 50, 150, 50, 1, 'К Вагону', text_color)
-        screen.blit(self.jump_button, 1350, 50)
+      #  self.jump_button = Button.create_button(self, fone, Color_green, 1800, 50, 150, 50, 1, 'К Вагону', text_color)
+      #  screen.blit(self.jump_button, 1350, 50)
         # draw_text(fone, str(score), 100, 1350, 100)

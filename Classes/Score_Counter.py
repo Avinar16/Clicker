@@ -25,6 +25,7 @@ class Score_Counter:
     def cleanup(self):
         with open('Classes\config.txt', mode='w', encoding='utf-8') as f:
             f.write(str(0))
+        print('Destroyed')
 
 
 
