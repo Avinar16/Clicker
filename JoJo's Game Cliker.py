@@ -13,7 +13,6 @@ clock = pygame.time.Clock()
 sound = pygame.mixer.Sound('Music\Main Theme.wav')
 sound.set_volume(0.01)
 
-
 # Scene setup
 scene_manager = Scene_manager(screen)
 
@@ -33,12 +32,10 @@ while running:
             # Check if we meed to change scene
             scene_manager.set_scene(event.pos)
 
-
         sound.play()
 
     # Rendering scene
     scene_manager.render()
-
     #  score = Score_Counter(screen)
     pygame.display.update()
     pygame.display.flip()

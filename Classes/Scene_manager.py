@@ -1,4 +1,3 @@
-
 from Classes.draw_text import draw_text
 from Scenes.Fight_scene import Fight_scene
 from Scenes.Foundation_scene import Foundation_scene
@@ -12,7 +11,6 @@ class Scene_manager():
         self.scene_id = 0
         # tuple of avaliable scenes
         self.scenes = (Foundation_scene(self.screen), Fight_scene(self.screen))
-
         # setting start scene
         self.scenes[self.scene_id].render()
 
@@ -26,9 +24,7 @@ class Scene_manager():
             self.scene_id = 1
 
     def render(self):
-
         self.scenes[self.scene_id].render()
-
         Mode_switch = pygame.image.load("UI\game_switch.png").convert_alpha()
         self.screen.blit(Mode_switch, (460, 927))
 
