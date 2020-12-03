@@ -27,10 +27,10 @@ while running:
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             # If scene is foundation?
-            if scene_manager.get_current_id() == 0:
+            if scene_manager.get_current_scene_id() == 0:
                 scene_manager.get_foundation().add_coin()
             # Check if we meed to change scene
-            scene_manager.set_scene(event.pos)
+            scene_manager.on_click(event.pos)
 
         sound.play()
 
