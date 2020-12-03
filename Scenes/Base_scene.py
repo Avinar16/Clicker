@@ -46,3 +46,7 @@ class Base_scene():
 
     def set_shop_opened(self, state):
         self.shop_is_opened = state
+
+
+    def get_shop_opened(self):
+        return self.shop_is_opened

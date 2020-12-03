@@ -28,7 +28,11 @@ class Scene_manager():
             self.scene_id = 1
         # Open shop
         elif mouse_x >= 0 and mouse_y >= 930:
-            self.scenes[self.scene_id].set_shop_opened(True)
+            print(self.scenes[self.scene_id].get_shop_opened())
+            if self.scenes[self.scene_id].get_shop_opened():
+                self.scenes[self.scene_id].set_shop_opened(False)
+            else:
+                self.scenes[self.scene_id].set_shop_opened(True)
 
     def render(self):
         # Render current scene
