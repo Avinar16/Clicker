@@ -31,6 +31,23 @@ class Base_scene():
         else:
             self.is_click_enabled = True
 
+    def check_buying(self):
+        x = 680
+        y = 200
+        for i in range(8):
+            coords = (x, y)
+            buy_button = pygame.image.load(f"UI\Buy_button.png").convert_alpha()
+            if i == 0:
+                self.screen.blit(buy_button, coords)
+            else:
+                y += 55
+            buy_button_rect = buy_button.get_rect()
+            buy_button_rect = buy_button.move(coords)
+            if buy_button_rect.collidepoint(self.pos) and self.pressed1:
+                return False
+            return True
+
+
     def check_closing(self):
         cords = (1100, 100)
         # Button image init

@@ -10,7 +10,7 @@ class Scene_manager():
         self.screen = screen
 
         # Id for scenes
-        self.scene_id = 0
+        self.scene_id = 1
 
         # tuple of avaliable scenes
         self.scenes = (Foundation_scene(self.screen), Fight_scene(self.screen))

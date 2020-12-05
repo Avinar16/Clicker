@@ -13,7 +13,8 @@ class Fight_scene(Base_scene):
 
     def render(self):
         background = pygame.image.load("Scenes\Background\Back.png").convert_alpha()
-        Hero_JoJo = pygame.image.load("Characters\Heros\Jonatan.png").convert_alpha()
+        get_hero = self.this_confing.getValue('hero')
+        Hero_JoJo = pygame.image.load(f"Characters\Heros\{get_hero}.png").convert_alpha()
         get_enemy = self.this_confing.getValue('enemy')
         Enemy = pygame.image.load(f"Characters\Antagonists\{get_enemy}.png").convert_alpha()
         self.screen.blit(background, (0, 0))
