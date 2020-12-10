@@ -35,6 +35,7 @@ class Foundation_scene(Base_scene):
 
     def check_pps_and_add_new(self):
         pps = float(self.this_confing.getValue(('pts')))
+
         pass
 
 

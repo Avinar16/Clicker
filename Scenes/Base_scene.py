@@ -32,8 +32,8 @@ class Base_scene():
             self.is_click_enabled = True
 
     def check_buying(self):
-        x = 680
-        y = 200
+        x = 1200
+        y = 185
         for i in range(8):
             coords = (x, y)
             buy_button = pygame.image.load(f"UI\Buy_button.png").convert_alpha()
