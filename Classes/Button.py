@@ -1,47 +1,31 @@
 import pygame
+from Classes.AssetManager import assetManager
 
 
-class Button:
-    def create_button(self, surface, color, x, y, length, height, width, text, text_color):
-        surface = self.draw_button(surface, color, length, height, x, y, width)
-        surface = self.write_text(surface, text, text_color, length, height, x, y)
-        self.rect = pygame.Rect(x, y, length, height)
-        return surface
+class Buttons(pygame.sprite.Group):
+    def __init__(self, width, height):
+        super().__init__()
+        self.width = width
+        self.height = height
 
-    def write_text(self, surface, text, text_color, length, height, x, y):
-        font_size = int(length // len(text))
-        myFont = pygame.font.SysFont("Calibri", font_size)
-        myText = myFont.render(text, 1, text_color)
-        surface.blit(myText, ((x + length / 2) - myText.get_width() / 2, (y + height / 2) - myText.get_height() / 2))
-        return surface
+    def generate(self, image, count=1, offset_x=0, offset_y=0, start_x=0, start_y=0):
+        self.image = assetManager.load_image(f"{image}.png")
+        x = start_x
+        y = start_y
+        for _ in range(count):
+            Button(x, y, image, self)
+            x += offset_x
+            y += offset_y
 
-    def draw_button(self, surface, color, length, height, x, y, width):
-        for i in range(1, 10):
-            s = pygame.Surface((length + (i * 2), height + (i * 2)))
-            s.fill(color)
-            alpha = (255 / (i + 2))
-            if alpha <= 0:
-                alpha = 1
-            s.set_alpha(alpha)
-            pygame.draw.rect(s, color, (x - i, y - i, length + i, height + i), width)
-            surface.blit(s, (x - i, y - i))
-        pygame.draw.rect(surface, color, (x, y, length, height), 0)
-        pygame.draw.rect(surface, (190, 190, 190), (x, y, length, height), 1)
-        return surface
 
-    def pressed(self, mouse):
-        if mouse[0] > self.rect.topleft[0]:
-            if mouse[1] > self.rect.topleft[1]:
-                if mouse[0] < self.rect.bottomright[0]:
-                    if mouse[1] < self.rect.bottomright[1]:
-                        print
-                        "Some button was pressed!"
-                        return True
-                    else:
-                        return False
-                else:
-                    return False
-            else:
-                return False
-        else:
-            return False
+class Button(pygame.sprite.Sprite):
+    def __init__(self, x, y, image, *groups):
+        super().__init__(groups)
+        self.path = image
+        self.image = assetManager.load_image(f"{self.path}.png")
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+    def update(self):
+        self.image = assetManager.load_image(f"{self.path}.png")
