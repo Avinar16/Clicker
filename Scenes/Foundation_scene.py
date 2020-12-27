@@ -2,6 +2,7 @@ import pygame
 from Scenes.Base_scene import Base_scene
 from Classes.draw_text import draw_text
 from Config import Config
+from Classes.AssetManager import assetManager
 
 
 # Foundation includes score managment
@@ -14,7 +15,7 @@ class Foundation_scene(Base_scene):
 
     def render(self):
         # Background init
-        background = pygame.image.load("Scenes\Background\sfoundation_background1.png").convert_alpha()
+        background = assetManager.load_image("sfoundation_background1.png")
         self.screen.blit(background, (0, 0))
         # Read coins from file and blit on screen
         draw_text(self.screen, str(self.coins), 64, 100, 100)
