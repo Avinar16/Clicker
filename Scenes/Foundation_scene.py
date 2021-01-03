@@ -9,7 +9,7 @@ from Classes.AssetManager import assetManager
 class Foundation_scene(Base_scene):
     def __init__(self, screen):
         self.screen = screen
-        self.this_confing = Config()
+        self.this_confing = Config('config.csv')
         self.coins = float(self.this_confing.getValue('coins'))
         super().__init__(screen)
 

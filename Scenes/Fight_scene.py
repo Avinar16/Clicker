@@ -10,7 +10,7 @@ from Classes.draw_text import draw_text
 class Fight_scene(Base_scene):
     def __init__(self, screen):
         super().__init__(screen)
-        self.this_confing = Config()
+        self.this_confing = Config('config.csv')
 
     def render(self):
         background = assetManager.load_image("fight_background.png")
