@@ -1,5 +1,7 @@
 import pygame
 from Classes.Scene_manager import Scene_manager
+from Classes.Button import Buttons
+from Classes.AssetManager import assetManager
 
 pygame.init()
 
@@ -21,6 +23,7 @@ MYEVENTTYPE = pygame.USEREVENT + 1
 pygame.time.set_timer(MYEVENTTYPE, 1000)
 
 running = True
+
 while running:
     time = pygame.time.get_ticks() // 1000
     start_time = 0
@@ -41,9 +44,6 @@ while running:
                     scene_manager.get_foundation().add_coin()
             # Check if we meed to change scene
             scene_manager.on_click(event.pos)
-
-
-
 
     #  score = Score_Counter(screen)
     pygame.display.update()

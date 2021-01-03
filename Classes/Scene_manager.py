@@ -2,6 +2,7 @@ from Classes.draw_text import draw_text
 from Scenes.Fight_scene import Fight_scene
 from Scenes.Foundation_scene import Foundation_scene
 import pygame
+from Classes.AssetManager import assetManager
 
 
 class Scene_manager():
@@ -39,10 +40,10 @@ class Scene_manager():
         self.scenes[self.scene_id].render()
 
         # switch mode button
-        Mode_switch = pygame.image.load("UI\game_switch.png").convert_alpha()
+        Mode_switch = assetManager.load_image("UI\game_switch.png").convert_alpha()
         self.screen.blit(Mode_switch, (460, 930))
         # shop open button
-        shop_button = pygame.image.load("UI\shop_button.png").convert_alpha()
+        shop_button = assetManager.load_image("UI\shop_button.png").convert_alpha()
         self.screen.blit(shop_button, (0, 930))
 
     def get_foundation(self):

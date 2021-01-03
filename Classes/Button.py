@@ -17,11 +17,17 @@ class Buttons(pygame.sprite.Group):
             x += offset_x
             y += offset_y
 
+    def on_click(self, pos, button=None):
+        for sprite in self.sprites():
+            if sprite.rect.collidepoint(pos):
+                pass
+
 
 class Button(pygame.sprite.Sprite):
     def __init__(self, x, y, image, *groups):
         super().__init__(groups)
         self.path = image
+        self.button_name = self.path.split('\\')
         self.image = assetManager.load_image(f"{self.path}.png")
         self.rect = self.image.get_rect()
         self.rect.x = x
