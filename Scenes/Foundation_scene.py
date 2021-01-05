@@ -1,7 +1,7 @@
 import pygame
 from Scenes.Base_scene import Base_scene
 from Classes.draw_text import draw_text
-from Config import Config
+from Config import config
 from Classes.AssetManager import assetManager
 
 
@@ -9,8 +9,7 @@ from Classes.AssetManager import assetManager
 class Foundation_scene(Base_scene):
     def __init__(self, screen):
         self.screen = screen
-        self.this_confing = Config('config.csv')
-        self.coins = float(self.this_confing.getValue('coins'))
+        self.coins = float(config.getValue('coins'))
         super().__init__(screen)
 
     def render(self):
@@ -26,21 +25,21 @@ class Foundation_scene(Base_scene):
         if self.is_click_enabled:
             self.coins += 1
             # Writing score to file
-            self.this_confing.setValue('coins', str(self.coins))
+            config.setValue('coins', str(self.coins))
 
     def add_coin_per_sec(self, ):
-        pps = float(self.this_confing.getValue('pps'))
+        pps = float(config.getValue('pps'))
         self.coins += pps
         self.coins = round(self.coins, 1)
-        self.this_confing.setValue('coins', str(self.coins))
+        config.setValue('coins', str(self.coins))
 
     def check_pps_and_add_new(self):
-        pps = float(self.this_confing.getValue(('pts')))
+        pps = float(config.getValue(('pts')))
 
         pass
 
 
     # annul score (for tests)
     def cleanup(self):
-        self.this_confing.setValue('coins', 0)
+        config.setValue('coins', 0)
         print('Destroyed')
