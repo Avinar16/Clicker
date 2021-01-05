@@ -1,6 +1,7 @@
 import pygame
 from Classes.Button import Buttons
 from Classes.AssetManager import assetManager
+from Classes.draw_text import draw_text
 
 
 class Base_scene():
@@ -10,9 +11,6 @@ class Base_scene():
         self.shop = False
 
         self.shop_is_opened = False
-
-        self.STATES = ['closed', 'opened']
-        self.state = self.STATES[0]
 
         self.is_click_enabled = True
 
@@ -32,25 +30,31 @@ class Base_scene():
         y = 185
         for i in range(8):
             coords = (x, y)
-            buy_button = assetManager.load_image(f"UI\Shop\Buy_button.png")
-            if i == 0:
-                self.screen.blit(buy_button, coords)
-            else:
-                y += 55
-            buy_button_rect = buy_button.get_rect()
-            buy_button_rect = buy_button.move(coords)
-            if buy_button_rect.collidepoint(self.pos) and self.pressed1:
-                return False
-            return True
+            # buy_button = assetManager.load_image(f"UI\Shop\Buy_button.png")
+        #    if i == 0:
+        # self.screen.blit(buy_button, coords)
+        # else:
+        #    y += 55
+        # buy_button_rect = buy_button.get_rect()
+        # buy_button_rect = buy_button.move(coords)
+        #    if buy_button_rect.collidepoint(self.pos) and self.pressed1:
+        #      return False
+        #   return True
 
-    def button_render(self, image):
+    def text_render(self):
         pass
+
+    def button_render(self):
+        self.buttons.empty()
+        self.buttons.generate('close_button', start_x=1100, start_y=100)
+        self.buttons.generate('Buy_button', count=4, offset_y=150, start_x=1218, start_y=250)
+        self.buttons.draw(self.screen)
+        for button in self.buttons:
+            print(button)
 
     def check_closing(self):
         cords = (1100, 100)
         # Button image init
-        self.buttons.generate('close_button', start_x=1100, start_y=100)
-
 
     def set_shop_opened(self, state):
         self.shop_is_opened = state
@@ -63,6 +67,7 @@ class Base_scene():
             # shop image init
             self.shop = assetManager.load_image(f"UI\{filename}.png")
             self.screen.blit(self.shop, (540, 1))
+            self.button_render()
 
             # Turn off clicking for coins or attacks
             self.is_click_enabled = False
