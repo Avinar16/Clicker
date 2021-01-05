@@ -25,3 +25,6 @@ class Config:
     def getValue(self, param_name, index=0):
         self.readConfig(index)
         return self.config[param_name]
+
+
+config = Config('config.csv')

@@ -35,7 +35,7 @@ class Foundation_scene(Base_scene):
         self.this_confing.setValue('coins', str(self.coins))
 
     def check_pps_and_add_new(self):
-        pps = float(self.this_confing.getValue(('pts')))
+        pps = float(self.this_confing.getValue(('bonus_fond', 2)))
 
         pass
 
