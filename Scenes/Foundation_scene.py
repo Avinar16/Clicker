@@ -1,16 +1,16 @@
 import pygame
 from Scenes.Base_scene import Base_scene
 from Classes.draw_text import draw_text
-from Config import Config
+from Config import config
 from Classes.AssetManager import assetManager
+from Classes.numbers_to_text import numbers_to_text
 
 
 # Foundation includes score managment
 class Foundation_scene(Base_scene):
     def __init__(self, screen):
         self.screen = screen
-        self.this_confing = Config('config.csv')
-        self.coins = float(self.this_confing.getValue('coins'))
+        self.coins = int(config.getValue('coins'))
         super().__init__(screen)
 
     def render(self):
@@ -18,7 +18,7 @@ class Foundation_scene(Base_scene):
         background = assetManager.load_image("sfoundation_background1.png")
         self.screen.blit(background, (0, 0))
         # Read coins from file and blit on screen
-        draw_text(self.screen, str(self.coins), 64, 100, 100)
+        draw_text(self.screen, f'{numbers_to_text(self.coins)}$', 64, 900, 100, font=True)
         # Base_scene render
         super().render('found_shop')
 
@@ -26,21 +26,20 @@ class Foundation_scene(Base_scene):
         if self.is_click_enabled:
             self.coins += 1
             # Writing score to file
-            self.this_confing.setValue('coins', str(self.coins))
+            config.setValue('coins', str(self.coins))
 
     def add_coin_per_sec(self, ):
-        pps = float(self.this_confing.getValue('pps'))
+        pps = int(config.getValue('pps'))
         self.coins += pps
         self.coins = round(self.coins, 1)
-        self.this_confing.setValue('coins', str(self.coins))
+        config.setValue('coins', str(self.coins))
 
     def check_pps_and_add_new(self):
-        pps = float(self.this_confing.getValue(('bonus_fond', 2)))
+        pps = float(config.getValue(('pts')))
 
         pass
 
-
     # annul score (for tests)
     def cleanup(self):
-        self.this_confing.setValue('coins', 0)
+        config.setValue('coins', 0)
         print('Destroyed')

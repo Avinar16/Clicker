@@ -1,4 +1,3 @@
-from Classes.draw_text import draw_text
 from Scenes.Fight_scene import Fight_scene
 from Scenes.Foundation_scene import Foundation_scene
 import pygame
@@ -34,9 +33,6 @@ class Scene_manager():
                 self.scenes[self.scene_id].set_shop_opened(False)
             else:
                 self.scenes[self.scene_id].set_shop_opened(True)
-        elif 1750 > mouse_x >= 1250 and 850 > mouse_y >= 100:
-            if self.scene_id == 1:
-                self.scenes[self.scene_id].add_hits()
 
     def render(self):
         # Render current scene

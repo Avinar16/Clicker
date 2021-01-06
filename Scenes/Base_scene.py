@@ -1,7 +1,10 @@
 import pygame
-from Classes.Button import Buttons
+
 from Classes.AssetManager import assetManager
+from Classes.Button import Buttons
 from Classes.draw_text import draw_text
+from Config import config
+from Classes.numbers_to_text import numbers_to_text
 
 
 class Base_scene():
@@ -20,7 +23,7 @@ class Base_scene():
     def render(self, shop_filename):
         # Positions for colliders
         self.pos = pygame.mouse.get_pos()
-        # clicks positiob
+        # clicks position
         self.pressed1, pressed2, pressed3 = pygame.mouse.get_pressed()
 
         self.shop_render(shop_filename)
@@ -41,8 +44,21 @@ class Base_scene():
         #      return False
         #   return True
 
-    def text_render(self):
-        pass
+    def text_render(self, scene, startx=0, starty=0, offset=0):
+        x = startx
+        y = starty
+
+        if scene == 'found_shop':
+            scene = 'bonus_fond'
+        else:
+            scene = 'bonus_fight'
+        for i in range(4):
+            power, price, ammount = config.getValue(scene, i).split(' ')
+            draw_text(self.screen, f'{price}$', 50, x, y, True)
+            draw_text(self.screen, f'{ammount}', 50, x, y + 50, True)
+            y += offset
+        coins = config.getValue('coins')
+        draw_text(self.screen, f'{numbers_to_text(coins)}$', 40, 700, 130, True)
 
     def button_render(self):
         self.buttons.empty()
@@ -68,6 +84,8 @@ class Base_scene():
             self.shop = assetManager.load_image(f"UI\{filename}.png")
             self.screen.blit(self.shop, (540, 1))
             self.button_render()
+
+            self.text_render(filename, 1000, 200, 160)
 
             # Turn off clicking for coins or attacks
             self.is_click_enabled = False
