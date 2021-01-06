@@ -7,7 +7,7 @@ def draw_text(surf, text, size, x, y, font=False):
         font_name = pygame.font.match_font('arial')
         font = pygame.font.Font(font_name, size)
     else:
-        font = pygame.font.Font("20008.ttf", 26)
+        font = pygame.font.Font("20008.ttf", size)
 
     text_surface = font.render(text, True, WHITE)
     text_rect = text_surface.get_rect()
