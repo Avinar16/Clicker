@@ -1,5 +1,5 @@
 import csv
-
+import copy
 
 class Config:
     def __init__(self, filename):
@@ -11,6 +11,7 @@ class Config:
         with open(self.filename, 'r', encoding='utf-8') as config_file:
             reader = csv.DictReader(config_file, delimiter=';', quotechar='"')
             self.config = list(reader)
+            self.backup = copy.deepcopy(self.config)
 
     def saveConfig(self):
         with open(self.filename, 'w', encoding='utf-8', newline='') as config_file:
@@ -25,6 +26,14 @@ class Config:
 
     def getValue(self, param_name, index=0):
         return self.config[index][param_name]
+
+    def load_backup(self):
+        with open(self.filename, 'w', encoding='utf-8', newline='') as config_file:
+            writer = csv.DictWriter(config_file, fieldnames=self.config[0].keys(), delimiter=";")
+            writer.writeheader()
+            writer.writerows(self.backup)
+
+
 
 
 config = Config('config.csv')

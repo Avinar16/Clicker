@@ -27,12 +27,17 @@ running = True
 while running:
     time = pygame.time.get_ticks() // 1000
     start_time = 0
+
     # Rendering scene
-    scene_manager.render()
+    point = pygame.mouse.get_pos()
+    scene_manager.render(point)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+
             # For tests. May be removed
             scene_manager.get_foundation().cleanup()
+
             running = False
         # add coin per second
         if event.type == MYEVENTTYPE:
@@ -45,6 +50,7 @@ while running:
                     scene_manager.get_foundation().add_coin()
             # Check if we meed to change scene
             scene_manager.on_click(event.pos)
+            scene_manager.set_click_for_buy(True)
 
     #  score = Score_Counter(screen)
     pygame.display.update()

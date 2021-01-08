@@ -1,5 +1,5 @@
-coins;enemy;hero;pps;bonus_fond;bonus_fight
-0;Dio_Brando-600;Jonatan;0;1 0 0;1 0 0
-;;;;10 0 0;3 0 0
-;;;;30 0 0;6 0 0
-;;;;70 0 0;10 0 0
+coins;enemy;hero;pps;bonus_fond;bonus_fight;damage
+10000;Dio_Brando-600;Jonatan;0;1 10 0;1 600 0;1
+;;;;10 600 0;3 2000 0;
+;;;;30 2000 0;6 5000 0;
+;;;;70 10000 0;10 15000 0;
