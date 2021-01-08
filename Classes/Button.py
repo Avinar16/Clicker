@@ -12,8 +12,10 @@ class Buttons(pygame.sprite.Group):
         self.image = assetManager.load_image(f"{image}.png")
         x = start_x
         y = start_y
+        self.index = 0
         for _ in range(count):
-            Button(x, y, image, self)
+            Button(x, y, image, self.index, self)
+            self.index += 1
             x += offset_x
             y += offset_y
 
@@ -24,10 +26,11 @@ class Buttons(pygame.sprite.Group):
 
 
 class Button(pygame.sprite.Sprite):
-    def __init__(self, x, y, image, *groups):
+    def __init__(self, x, y, image, index, *groups):
         super().__init__(groups)
         self.path = image
         self.button_name = self.path.split('\\')
+        self.button_name.append(index)
         self.image = assetManager.load_image(f"{self.path}.png")
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -35,3 +38,9 @@ class Button(pygame.sprite.Sprite):
 
     def update(self):
         self.image = assetManager.load_image(f"{self.path}.png")
+
+    def get_button_name(self):
+        return self.button_name[0]
+
+    def get_button_index(self):
+        return self.button_name[1]

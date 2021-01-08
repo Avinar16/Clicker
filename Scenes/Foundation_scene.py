@@ -10,36 +10,42 @@ from Classes.numbers_to_text import numbers_to_text
 class Foundation_scene(Base_scene):
     def __init__(self, screen):
         self.screen = screen
-        self.coins = int(config.getValue('coins'))
         super().__init__(screen)
 
     def render(self):
         # Background init
         background = assetManager.load_image("sfoundation_background1.png")
         self.screen.blit(background, (0, 0))
+
+        frame = assetManager.load_image('ramka.png')
+        self.screen.blit(frame, (540, 80))
+        frame = pygame.transform.scale(frame, (350, 78))
+
+        self.screen.blit(frame, (540, 300))
+        cps = config.getValue('pps')
+        draw_text(self.screen, f'{cps}$/per sec', 30, 715, 320, font=True)
+
+        self.screen.blit(frame, (953, 300))
+        click_power = config.getValue('damage')
+        draw_text(self.screen, f'{click_power}$/per click', 30, 1130, 320, font=True)
+
         # Read coins from file and blit on screen
-        draw_text(self.screen, f'{numbers_to_text(self.coins)}$', 64, 900, 100, font=True)
+        self.money = int(config.getValue('coins'))
+        draw_text(self.screen, f'{numbers_to_text(self.money)}$', 64, 915, 115, font=True)
         # Base_scene render
         super().render('found_shop')
 
     def add_coin(self):
         if self.is_click_enabled:
-            self.coins += 1
+            self.money += int(config.getValue('damage'))
             # Writing score to file
-            config.setValue('coins', str(self.coins))
-
-    def add_coin_per_sec(self, ):
-        pps = int(config.getValue('pps'))
-        self.coins += pps
-        self.coins = round(self.coins, 1)
-        config.setValue('coins', str(self.coins))
+            config.setValue('coins', str(self.money))
 
     def check_pps_and_add_new(self):
         pps = float(config.getValue(('pts')))
-
         pass
 
     # annul score (for tests)
     def cleanup(self):
-        config.setValue('coins', 0)
-        print('Destroyed')
+        config.load_backup()
+        print('Loaded backup')
