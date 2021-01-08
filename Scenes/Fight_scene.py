@@ -2,10 +2,13 @@ from Scenes.Base_scene import Base_scene
 from Config import config
 from Classes.AssetManager import assetManager
 from Classes.draw_text import draw_text
+from Classes.check_level import check_level, set_level
+
 
 
 class Fight_scene(Base_scene):
     def __init__(self, screen):
+        self.level_id =check_level()
         self.counter = 30
         self.check_fight = False
         self.get_hero = config.getValue('hero')
@@ -14,11 +17,12 @@ class Fight_scene(Base_scene):
         self.Hero_JoJo = assetManager.load_image(f"Heros\{self.get_hero}.png")
         self.get_enemy = config.getValue('enemy').split('/')[0]
         self.Enemy = assetManager.load_image(f"Antagonists\{self.get_enemy}.png")
+        self.boss_hp_start = int(config.getValue('enemy').split('/')[1])
         super().__init__(screen)
 
     def render(self):
         self.boss_hp = int(config.getValue('enemy').split('/')[1])
-        if self.boss_hp <= 0 :
+        if self.boss_hp <= 0:
             self.player_win()
         elif self.counter == 0:
             self.player_lose()
@@ -27,7 +31,7 @@ class Fight_scene(Base_scene):
             self.screen.blit(self.Hero_JoJo, (100, 50))
             self.screen.blit(self.Enemy, (1250, 100))
             self.buttons.empty()
-            self.buttons.generate('ramka', start_x=550, start_y=700)
+            self.buttons.generate('attack_button', start_x=800, start_y=700)
             self.buttons.draw(self.screen)
             if self.check_fight:
                 draw_text(self.screen, str(self.counter), 64, 900, 100, font=True)
@@ -53,18 +57,15 @@ class Fight_scene(Base_scene):
         self.screen.blit(self.black_fone, (0, 0))
         draw_text(self.screen, 'YOU LOSE TRY AGAIN, PRESS ANY KEY TO CONTINUE', 60, 900, 100, font=True)
 
-
     def update_counter(self):
         self.counter = 30
+        config.setValue('enemy', self.get_enemy + '/' + str(self.boss_hp_start))
 
     def player_win(self):
         self.screen.blit(self.black_fone, (0, 0))
         draw_text(self.screen, 'YOU WIN, PRESS ANY KEY TO NEXT LEVEL', 60, 900, 100, font=True)
-
-
-
-
-
+        self.level_id += 1
+        set_level(self.level_id)
 
 
 

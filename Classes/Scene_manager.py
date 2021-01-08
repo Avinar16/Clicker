@@ -39,7 +39,7 @@ class Scene_manager():
             if self.scene_id == 1:
                 self.scenes[self.scene_id].add_hits()
 
-        elif 1313 > mouse_x >= 550 and 856 > mouse_y >= 700:
+        elif 1082 > mouse_x >= 800 and 850 > mouse_y >= 700:
             if self.scene_id == 1:
                 self.scenes[self.scene_id].activate_timer()
 
@@ -69,4 +69,3 @@ class Scene_manager():
 
     def render_coins_persec(self):
         self.scenes[self.scene_id].add_coin_per_sec()
-
