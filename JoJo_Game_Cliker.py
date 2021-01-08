@@ -1,6 +1,5 @@
 import pygame
 from Classes.Scene_manager import Scene_manager
-from Classes.Fight_click import fight
 from Classes.Button import Buttons
 from Classes.AssetManager import assetManager
 
