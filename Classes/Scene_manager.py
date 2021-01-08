@@ -1,7 +1,5 @@
-
 from Scenes.Fight_scene import Fight_scene
 from Scenes.Foundation_scene import Foundation_scene
-import pygame
 from Classes.AssetManager import assetManager
 
 
