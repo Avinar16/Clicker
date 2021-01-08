@@ -1,3 +1,4 @@
+import pygame
 from Scenes.Base_scene import Base_scene
 from Classes.draw_text import draw_text
 from Config import config

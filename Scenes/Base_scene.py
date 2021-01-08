@@ -10,9 +10,7 @@ from Classes.numbers_to_text import numbers_to_text
 class Base_scene():
     def __init__(self, screen):
         self.screen = screen
-
         self.shop_is_opened = False
-
         self.is_click_enabled = True
         # init sprite  group for shop buttons
         self.buttons = Buttons(1920, 1080)
@@ -24,7 +22,6 @@ class Base_scene():
         self.mouse_pos = pygame.mouse.get_pos()
         # clicks position
         self.pressed1, pressed2, pressed3 = pygame.mouse.get_pressed()
-
         self.money = int(config.getValue('coins'))
         self.shop_render(shop_filename)
 
@@ -38,7 +35,6 @@ class Base_scene():
                     print(self.money)
                     bonus_config = list(map(lambda x: int(x),
                                             config.getValue(self.shop_type, config_id).split(' ')))
-
                     if self.money >= bonus_config[1] and self.shop_type == 'bonus_fond':
                         self.money -= bonus_config[1]
                         bonus_config[2] += 1
@@ -73,7 +69,6 @@ class Base_scene():
         for i in range(4):
             # load info from config
             power, price, ammount = config.getValue(self.shop_type, i).split(' ')
-
             # draw config info in shop
             draw_text(self.screen, f'{price}$', 40, x, y, True)
             draw_text(self.screen, f'{ammount}', 30, x, y + 50, True)
@@ -111,7 +106,6 @@ class Base_scene():
             self.screen.blit(self.shop, (540, 1))
             self.button_render()
             self.text_render(filename, 1050, 220, 160)
-
             self.check_buying()
             self.check_closing()
             # Turn off clicking for coins or attacks

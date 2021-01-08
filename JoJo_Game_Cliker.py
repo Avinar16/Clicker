@@ -1,6 +1,5 @@
 import pygame
 from Classes.Scene_manager import Scene_manager
-from Scenes.Fight_scene import Fight_scene
 
 pygame.init()
 
@@ -20,7 +19,6 @@ scene_manager = Scene_manager(screen)
 # set timer
 MYEVENTTYPE = pygame.USEREVENT + 1
 pygame.time.set_timer(MYEVENTTYPE, 1000)
-counter = Fight_scene.get_timer()
 
 running = True
 
@@ -39,9 +37,13 @@ while running:
             scene_manager.get_foundation().cleanup()
 
             running = False
+
+        if event.type == pygame.KEYDOWN:
+            if scene_manager.get_fight().counter == 0:
+                scene_manager.get_fight().update_counter()
         # add coin per second
         if event.type == MYEVENTTYPE:
-            counter -= 1
+            scene_manager.get_fight().timer_fight()
             scene_manager.get_foundation().add_coin_per_sec()
         if event.type == pygame.MOUSEBUTTONDOWN:
             # If scene is foundation?
