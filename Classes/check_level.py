@@ -11,3 +11,4 @@ def check_level():
         return 1
     if config.getValue('level') == 2:
         return 2
+    print(1)
