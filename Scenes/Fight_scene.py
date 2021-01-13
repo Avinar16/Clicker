@@ -8,20 +8,29 @@ from Classes.check_level import check_level, set_level
 
 class Fight_scene(Base_scene):
     def __init__(self, screen):
-        self.level_id =check_level()
+        self.lose_counter = int(config.getValue('lose_counter'))
+        self.win = False
+        self.lose = False
+        self.level_id = check_level()
+        self.music_counter = 0
+        print(self.level_id)
         self.counter = 30
         self.check_fight = False
-        self.get_hero = config.getValue('hero')
         self.background = assetManager.load_image("fight_background.png")
         self.black_fone = assetManager.load_image("black_fone.jpg")
-        self.Hero_JoJo = assetManager.load_image(f"Heros\{self.get_hero}.png")
-        self.get_enemy = config.getValue('enemy').split('/')[0]
-        self.Enemy = assetManager.load_image(f"Antagonists\{self.get_enemy}.png")
         self.boss_hp_start = int(config.getValue('enemy').split('/')[1])
         super().__init__(screen)
 
     def render(self):
+        if self.level_id == 0:
+            self.background = assetManager.load_image("level1.png")
+        elif self.level_id == 1:
+            self.background = assetManager.load_image("level2.png")
+        self.get_hero = config.getValue('hero')
+        self.Hero_JoJo = assetManager.load_image(f"Heros\{self.get_hero}.png")
         self.boss_hp = int(config.getValue('enemy').split('/')[1])
+        self.get_enemy = config.getValue('enemy').split('/')[0]
+        self.Enemy = assetManager.load_image(f"Antagonists\{self.get_enemy}.png")
         if self.boss_hp <= 0:
             self.player_win()
         elif self.counter == 0:
@@ -37,11 +46,17 @@ class Fight_scene(Base_scene):
                 draw_text(self.screen, str(self.counter), 64, 900, 100, font=True)
                 draw_text(self.screen, 'Boss hp:', 50, 1700, 900, font=True)
                 draw_text(self.screen, str(self.boss_hp), 50, 1750, 950, font=True)
-        super().render('fight_shop')
+        if self.level_id == 0:
+            super().render('fight_shop')
+        elif self.level_id == 1:
+            super().render('fight_shop_level1')
+        elif self.level_id == 2:
+            super().render('fight_shop_level2')
 
     def add_hits(self):
-        power_hit = int(config.getValue('damage'))
-        config.setValue('enemy', self.get_enemy + '/' + str((self.boss_hp - power_hit)))
+        if self.check_fight:
+            power_hit = int(config.getValue('damage'))
+            config.setValue('enemy', self.get_enemy + '/' + str((self.boss_hp - power_hit)))
 
     def activate_timer(self):
         self.check_fight = True
@@ -54,18 +69,46 @@ class Fight_scene(Base_scene):
                 self.counter -= 1
 
     def player_lose(self):
+        self.lose = True
+        config.setValue('lose_counter', str(self.lose_counter + 1))
         self.screen.blit(self.black_fone, (0, 0))
         draw_text(self.screen, 'YOU LOSE TRY AGAIN, PRESS ANY KEY TO CONTINUE', 60, 900, 100, font=True)
 
     def update_counter(self):
         self.counter = 30
+        self.lose = False
         config.setValue('enemy', self.get_enemy + '/' + str(self.boss_hp_start))
+        self.music_counter = 0
 
     def player_win(self):
+        self.win = True
+        if self.level_id == 2:
+            self.new_game()
+            self.screen.blit(self.black_fone, (0, 0))
+            draw_text(self.screen, 'YOU WIN, PRESS ANY KEY TO START NEW GAME', 60, 900, 100, font=True)
         self.screen.blit(self.black_fone, (0, 0))
         draw_text(self.screen, 'YOU WIN, PRESS ANY KEY TO NEXT LEVEL', 60, 900, 100, font=True)
-        self.level_id += 1
-        set_level(self.level_id)
+
+    def set_level(self):
+        if self.level_id == 2:
+            pass
+        else:
+            self.level_id += 1
+            set_level(self.level_id)
+        if self.level_id == 1:
+            config.setValue('hero', 'Joseph')
+            config.setValue('enemy', 'Kars/10000' )
+        elif self.level_id == 2:
+            config.setValue('hero', 'Jotaro')
+            config.setValue('enemy', 'DIO/30000')
+        self.win = False
+
+    def new_game(self):
+        config.setValue('hero', 'Jonatan')
+        config.setValue('enemy', 'Dio_Brando/5000')
+        config.setValue('level', '0')
+
+
 
 
 

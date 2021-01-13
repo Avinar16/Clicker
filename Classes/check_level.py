@@ -5,10 +5,9 @@ def set_level(level_id=0):
         config.setValue('level', level_id)
 
 def check_level():
-    if config.getValue('level') == 0:
+    if config.getValue('level') == '0':
         return 0
-    if config.getValue('level') == 1:
+    if config.getValue('level') == '1':
         return 1
-    if config.getValue('level') == 2:
+    if config.getValue('level') == '2':
         return 2
-    print(1)

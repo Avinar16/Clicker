@@ -1,6 +1,6 @@
 import pygame
 from Classes.Scene_manager import Scene_manager
-
+from Config import config
 pygame.init()
 
 # Screen setup
@@ -10,10 +10,12 @@ pygame.display.set_caption("JoJo's Cliker")
 
 clock = pygame.time.Clock()
 
-sound = pygame.mixer.Sound('data\Music\Main Theme.wav')
-sound.set_volume(0.01)
-sound.play()
-
+Maintheme = pygame.mixer.Sound('data\Music\Main Theme.wav')
+Maintheme.set_volume(0.01)
+Maintheme.play()
+sound_lose_1 = pygame.mixer.Sound('data\Music\goodbye-jojo.wav')
+sound_lose_2 = pygame.mixer.Sound('data\Music\oh-my-god-joseph.wav')
+sound_lose_3 = pygame.mixer.Sound('data\Music\muda.wav')
 # Scene setup
 scene_manager = Scene_manager(screen)
 # set timer
@@ -23,8 +25,10 @@ pygame.time.set_timer(MYEVENTTYPE, 1000)
 running = True
 
 while running:
+    lose_counter = config.getValue('lose_counter')
     time = pygame.time.get_ticks() // 1000
     start_time = 0
+    cicle_counter_1 = 0
 
     # Rendering scene
     point = pygame.mouse.get_pos()
@@ -41,6 +45,8 @@ while running:
         if event.type == pygame.KEYDOWN:
             if scene_manager.get_fight().counter == 0:
                 scene_manager.get_fight().update_counter()
+            if scene_manager.get_fight().win:
+                scene_manager.get_fight().set_level()
         # add coin per second
         if event.type == MYEVENTTYPE:
             scene_manager.get_fight().timer_fight()
@@ -53,6 +59,25 @@ while running:
             # Check if we meed to change scene
             scene_manager.on_click(event.pos)
             scene_manager.set_click_for_buy(True)
+
+        if scene_manager.get_fight().lose:
+            if scene_manager.get_fight().level_id == 0:
+                sound_lose_1.set_volume(0.1)
+                if scene_manager.get_fight().music_counter == 0:
+                    sound_lose_1.play(0, 2000)
+                    scene_manager.get_fight().music_counter += 1
+            elif scene_manager.get_fight().level_id == 1:
+                sound_lose_2.set_volume(0.1)
+                sound_lose_2.play()
+                if scene_manager.get_fight().music_counter == 0:
+                    sound_lose_2.play(0, 2000)
+                    scene_manager.get_fight().music_counter += 1
+            elif scene_manager.get_fight().level_id == 2:
+                sound_lose_3.set_volume(0.1)
+                if scene_manager.get_fight().music_counter == 0:
+                    sound_lose_3.play(0, 2000)
+                    scene_manager.get_fight().music_counter += 1
+
 
     #  score = Score_Counter(screen)
     pygame.display.update()

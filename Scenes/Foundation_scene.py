@@ -41,10 +41,6 @@ class Foundation_scene(Base_scene):
             # Writing score to file
             config.setValue('coins', str(self.money))
 
-    def check_pps_and_add_new(self):
-        pps = float(config.getValue(('pts')))
-        pass
-
     # annul score (for tests)
     def cleanup(self):
         config.load_backup()
