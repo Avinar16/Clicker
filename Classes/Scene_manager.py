@@ -29,12 +29,12 @@ class Scene_manager():
             self.scene_id = 1
 
         # Open shop
-        elif mouse_x >= 0 and mouse_y >= 930:
+        elif mouse_x >= 0 and mouse_y >= 930 and mouse_x < 290:
             if self.scenes[self.scene_id].get_shop_opened():
                 self.scenes[self.scene_id].set_shop_opened(False)
             else:
                 self.scenes[self.scene_id].set_shop_opened(True)
-
+        # Damage
         elif 1750 > mouse_x >= 1250 and 850 > mouse_y >= 100:
             if self.scene_id == 1:
                 self.scenes[self.scene_id].add_hits()
@@ -42,6 +42,7 @@ class Scene_manager():
         elif 1082 > mouse_x >= 800 and 850 > mouse_y >= 700:
             if self.scene_id == 1:
                 self.scenes[self.scene_id].activate_timer()
+                self.scenes[self.scene_id].add_hits()
 
     def render(self, mouse_point):
         # Render current scene
