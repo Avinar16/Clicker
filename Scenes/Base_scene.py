@@ -42,7 +42,9 @@ class Base_scene():
                         curent_pps = int(config.getValue('pps'))
                         config.setValue('pps', curent_pps + bonus_config[0])
                         config.setValue(self.shop_type, ' '.join(map(str, bonus_config)), index=config_id)
-                    elif self.money >= bonus_config[1] and self.shop_type == 'bonus_fight' and bonus_config[2] < 1:
+                    elif self.money >= bonus_config[1] and (self.shop_type == 'bonus_fight'\
+                                            or self.shop_type == 'bonus_fight2' or self.shop_type == 'bonus_fight3') \
+                        and bonus_config[2] < 1:
                         self.money -= bonus_config[1]
                         bonus_config[2] += 1
                         curent_damage = int(config.getValue('damage'))
@@ -64,8 +66,12 @@ class Base_scene():
         # set name for interactions with config
         if scene == 'found_shop':
             self.shop_type = 'bonus_fond'
-        else:
+        elif scene == 'fight_shop':
             self.shop_type = 'bonus_fight'
+        elif scene == 'fight_shop_level1':
+            self.shop_type = 'bonus_fight2'
+        elif scene == 'fight_shop_level2':
+            self.shop_type = 'bonus_fight3'
         for i in range(4):
             # load info from config
             power, price, ammount = config.getValue(self.shop_type, i).split(' ')

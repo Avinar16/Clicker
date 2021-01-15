@@ -1,5 +1,5 @@
-coins;enemy;hero;pps;bonus_fond;bonus_fight;damage;level;lose_counter
-6000;Dio_Brando/5000;Jonatan;0;1 10 0;1 600 1;610;0;10
-;;;;10 600 0;3 2000 1;;;
-;;;;30 2000 0;6 5000 1;;;
-;;;;70 10000 0;10 15000 0;;;
+coins;enemy;hero;pps;bonus_fond;bonus_fight;damage;level;lose_counter;bonus_fight2;bonus_fight3
+999713153;DIO/48745;Jotaro;0;1 10 0;1 600 1;251;2;10;15 20000 1;30 35000 1
+;;;;10 600 0;3 2000 1;;;;20 25000 1;30 35000 1
+;;;;30 2000 0;6 5000 1;;;;25 30000 1;30 35000 1
+;;;;70 10000 0;10 15000 1;;;;30 35000 1;50 50000 1
