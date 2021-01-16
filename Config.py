@@ -1,6 +1,7 @@
 import csv
 import copy
 
+
 class Config:
     def __init__(self, filename):
         self.filename = filename
@@ -32,8 +33,15 @@ class Config:
             writer = csv.DictWriter(config_file, fieldnames=self.config[0].keys(), delimiter=";")
             writer.writeheader()
             writer.writerows(self.backup)
+            print('Loaded backup')
 
+    def load_preset(self):
+        with open(self.filename, 'w', encoding='utf-8', newline='') as config_file:
+            preset = open('preset.csv')
+            self.config = list(csv.DictReader(preset, delimiter=';', quotechar='"'))
+            self.saveConfig()
 
+            print('Loaded preset')
 
 
 config = Config('config.csv')

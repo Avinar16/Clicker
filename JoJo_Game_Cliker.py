@@ -1,5 +1,6 @@
 import pygame
 from Classes.Scene_manager import Scene_manager
+from Config import config
 
 pygame.init()
 
@@ -15,7 +16,7 @@ playLs = ['data\Music\Main Theme.wav', 'data\Music\BLOODY STREAM (piano).mp3',
 pygame.mixer.music.load(playLs[0])
 for i in playLs:
     pygame.mixer.music.queue(i)
-pygame.mixer.music.set_volume(0.06)
+pygame.mixer.music.set_volume(0.01)
 pygame.mixer.music.play(1)
 sound_lose_1 = pygame.mixer.Sound('data\Music\goodbye-jojo.wav')
 sound_lose_2 = pygame.mixer.Sound('data\Music\oh-my-god-joseph.wav')
@@ -24,7 +25,7 @@ sound_win_1 = pygame.mixer.Sound('data\Music\-wryyyyyyyyy.wav')
 sound_win_2 = pygame.mixer.Sound('data\Music\joseph-joestar-nice.wav')
 sound_win_3 = pygame.mixer.Sound('data\Music\oraoraoraoraora-sound-effect.wav')
 sound_hit = pygame.mixer.Sound('data\Music\e69c35e30a3057.wav')
-sound_hit.set_volume(0.35)
+sound_hit.set_volume(0.01)
 # Scene setup
 scene_manager = Scene_manager(screen)
 # set timer
@@ -34,6 +35,10 @@ pygame.time.set_timer(MYEVENTTYPE, 1000)
 running = True
 
 while running:
+
+    running = bool(config.getValue('running'))
+    if not running:
+        print(running)
     time = pygame.time.get_ticks() // 1000
     start_time = 0
 
@@ -105,5 +110,5 @@ while running:
 
     pygame.display.update()
     pygame.display.flip()
-    clock.tick(30)
+    clock.tick(12)
 pygame.quit()

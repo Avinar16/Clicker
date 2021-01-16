@@ -3,7 +3,8 @@ from Config import config
 from Classes.AssetManager import assetManager
 from Classes.draw_text import draw_text
 from Classes.check_level import check_level, set_level
-
+from os import startfile
+from math import ceil
 
 
 class Fight_scene(Base_scene):
@@ -61,12 +62,10 @@ class Fight_scene(Base_scene):
             power_hit = int(config.getValue('damage'))
             config.setValue('enemy', self.get_enemy + '/' + str((self.boss_hp - power_hit)))
 
-
     def red_boos(self):
         self.add_hit = False
-        self.screen.blit(self.Enemy_red, (1250, 100))
-
-
+        if not self.win:
+            self.screen.blit(self.Enemy_red, (1250, 100))
 
     def activate_timer(self):
         self.check_fight = True
@@ -98,17 +97,24 @@ class Fight_scene(Base_scene):
         self.counter = 30
         self.win = True
         self.screen.blit(self.black_fone, (0, 0))
-        draw_text(self.screen, 'YOU WIN, PRESS ANY KEY TO NEXT LEVEL', 60, 900, 100, font=True)
+        if self.level_id != 2:
+            draw_text(self.screen, 'YOU WIN, PRESS ANY KEY TO NEXT LEVEL', 60, 900, 100, font=True)
+        else:
+            draw_text(self.screen, 'CONGRATULATIONS, PRESS ANY KEY TO CONTINUE', 60, 900, 100, font=True)
 
     def set_level(self):
         if self.level_id == 2:
-            pass
+            config.load_preset()
+            config.setValue('running', False)
+            startfile('data\Credits\Credits.mp4')
         else:
+            cur_pps = int(config.getValue('pps'))
+            config.setValue('pps', ceil(cur_pps * 1.5))
             self.level_id += 1
             set_level(self.level_id)
         if self.level_id == 1:
             config.setValue('hero', 'Joseph')
-            config.setValue('enemy', 'Kars/20000' )
+            config.setValue('enemy', 'Kars/20000')
         elif self.level_id == 2:
             config.setValue('hero', 'Jotaro')
             config.setValue('enemy', 'DIO/50000')

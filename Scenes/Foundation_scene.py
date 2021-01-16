@@ -44,4 +44,4 @@ class Foundation_scene(Base_scene):
     # annul score (for tests)
     def cleanup(self):
         config.load_backup()
-        print('Loaded backup')
+
