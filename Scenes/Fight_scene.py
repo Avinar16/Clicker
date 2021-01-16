@@ -39,7 +39,7 @@ class Fight_scene(Base_scene):
             self.player_lose()
         else:
             self.screen.blit(self.background, (0, 0))
-            self.screen.blit(self.Hero_JoJo, (100, 50))
+            self.screen.blit(self.Hero_JoJo, (100, 100))
             self.screen.blit(self.Enemy, (1250, 100))
             self.buttons.empty()
             self.buttons.generate('attack_button', start_x=800, start_y=700)
