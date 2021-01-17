@@ -10,14 +10,12 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption("JoJo's Cliker")
 
 clock = pygame.time.Clock()
-playLs = ['data\Music\Main Theme.wav', 'data\Music\BLOODY STREAM (piano).mp3',
-          'data\Music\ost_JoJo_-_Walk_Like_an_Egyptian_65999419.mp3',
-          'data\Music\Great_Days_67446269.mp3', 'data\Music\Chase_You_67481061.mp3']
+playLs = ['data\Music\mix_18m10s (audio-joiner.com).mp3']
 pygame.mixer.music.load(playLs[0])
 for i in playLs:
     pygame.mixer.music.queue(i)
-pygame.mixer.music.set_volume(0.01)
-pygame.mixer.music.play(1)
+pygame.mixer.music.set_volume(0.06)
+pygame.mixer.music.play(-1)
 sound_lose_1 = pygame.mixer.Sound('data\Music\goodbye-jojo.wav')
 sound_lose_2 = pygame.mixer.Sound('data\Music\oh-my-god-joseph.wav')
 sound_lose_3 = pygame.mixer.Sound('data\Music\muda.wav')
@@ -53,7 +51,7 @@ while running:
 
             running = False
 
-        if event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
             if scene_manager.get_fight().counter == 0:
                 scene_manager.get_fight().update_counter()
             if scene_manager.get_fight().win:
@@ -71,7 +69,8 @@ while running:
                 if event.button == 1:
                     scene_manager.get_foundation().add_coin()
             # Check if we meed to change scene
-            scene_manager.on_click(event.pos)
+            if event.button == 1:
+                scene_manager.on_click(event.pos)
             scene_manager.set_click_for_buy(True)
 
         if scene_manager.get_fight().lose:
