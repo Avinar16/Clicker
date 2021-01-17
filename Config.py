@@ -37,7 +37,7 @@ class Config:
 
     def load_preset(self):
         with open(self.filename, 'w', encoding='utf-8', newline='') as config_file:
-            preset = open('preset.csv')
+            preset = open('data/preset.csv')
             self.config = list(csv.DictReader(preset, delimiter=';', quotechar='"'))
             self.saveConfig()
 
