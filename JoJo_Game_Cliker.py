@@ -14,7 +14,7 @@ playLs = ['data\Music\mix_18m10s (audio-joiner.com).mp3']
 pygame.mixer.music.load(playLs[0])
 for i in playLs:
     pygame.mixer.music.queue(i)
-pygame.mixer.music.set_volume(0.06)
+pygame.mixer.music.set_volume(0.01)
 pygame.mixer.music.play(-1)
 sound_lose_1 = pygame.mixer.Sound('data\Music\goodbye-jojo.wav')
 sound_lose_2 = pygame.mixer.Sound('data\Music\oh-my-god-joseph.wav')
@@ -46,15 +46,12 @@ while running:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            # For tests. May be removed
-            scene_manager.get_foundation().cleanup()
-
             running = False
 
-        if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.KEYDOWN:
             if scene_manager.get_fight().counter == 0:
                 scene_manager.get_fight().update_counter()
-            if scene_manager.get_fight().win:
+            if scene_manager.get_fight().get_win():
                 scene_manager.get_fight().set_level()
         # add coin per second
         if scene_manager.get_fight().add_hit:

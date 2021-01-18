@@ -29,19 +29,19 @@ class Fight_scene(Base_scene):
         elif self.level_id == 2:
             self.background = assetManager.load_image("levels\level3.png")
         self.get_hero = config.getValue('hero')
-        self.Hero_JoJo = assetManager.load_image(f"Heros\{self.get_hero}.png")
+        # self.Hero_JoJo = assetManager.load_image(f"Heros\{self.get_hero}.png")
         self.boss_hp = int(config.getValue('enemy').split('/')[1])
         self.get_enemy = config.getValue('enemy').split('/')[0]
-        self.Enemy = assetManager.load_image(f"Antagonists\{self.get_enemy}.png")
-        self.Enemy_red = assetManager.load_image(f"Antagonists\{self.get_enemy + '_' + str(self.level_id)}.png")
+        # self.Enemy = assetManager.load_image(f"Antagonists\{self.get_enemy}.png")
+        # self.Enemy_red = assetManager.load_image(f"Antagonists\{self.get_enemy + '_' + str(self.level_id)}.png")
         if self.boss_hp <= 0:
             self.player_win()
         elif self.counter == 0:
             self.player_lose()
         else:
             self.screen.blit(self.background, (0, 0))
-            self.screen.blit(self.Hero_JoJo, (100, 100))
-            self.screen.blit(self.Enemy, (1250, 100))
+            self.screen.blit(assetManager.load_image(f"Heros\{self.get_hero}.png"), (100, 100))
+            self.screen.blit(assetManager.load_image(f"Antagonists\{self.get_enemy}.png"), (1250, 100))
             self.buttons.empty()
             self.buttons.generate('attack_button', start_x=800, start_y=700)
             self.buttons.draw(self.screen)
@@ -62,10 +62,14 @@ class Fight_scene(Base_scene):
             power_hit = int(config.getValue('damage'))
             config.setValue('enemy', self.get_enemy + '/' + str((self.boss_hp - power_hit)))
 
+    def get_win(self):
+        return self.win
+
     def red_boos(self):
         self.add_hit = False
         if not self.win:
-            self.screen.blit(self.Enemy_red, (1250, 100))
+            self.screen.blit(assetManager.load_image(f"Antagonists\{self.get_enemy + '_' + str(self.level_id)}.png"),
+                             (1250, 100))
 
     def activate_timer(self):
         self.check_fight = True
@@ -80,7 +84,7 @@ class Fight_scene(Base_scene):
     def player_lose(self):
         self.lose = True
         self.screen.blit(self.black_fone, (0, 0))
-        draw_text(self.screen, 'YOU LOSE TRY AGAIN, PRESS ANY KEY TO CONTINUE', 60, 900, 100, font=True)
+        draw_text(self.screen, 'YOU LOSE TRY AGAIN, PRESS SPACE TO CONTINUE', 60, 900, 100, font=True)
 
     def update_counter(self):
         self.check_fight = False
@@ -98,15 +102,15 @@ class Fight_scene(Base_scene):
         self.win = True
         self.screen.blit(self.black_fone, (0, 0))
         if self.level_id != 2:
-            draw_text(self.screen, 'YOU WIN, PRESS ANY KEY TO NEXT LEVEL', 60, 900, 100, font=True)
+            draw_text(self.screen, 'YOU WIN, PRESS SPACE TO NEXT LEVEL', 60, 900, 100, font=True)
         else:
-            draw_text(self.screen, 'CONGRATULATIONS, PRESS ANY KEY TO CONTINUE', 60, 900, 100, font=True)
+            draw_text(self.screen, 'CONGRATULATIONS, PRESS SPACE TO CONTINUE', 60, 900, 100, font=True)
+            startfile('data\Credits\Credits.mp4')
+            config.load_preset()
 
     def set_level(self):
         if self.level_id == 2:
-            config.load_preset()
-            config.setValue('running', False)
-            startfile('data\Credits\Credits.mp4')
+            pass
         else:
             cur_pps = int(config.getValue('pps'))
             config.setValue('pps', ceil(cur_pps * 1.5))

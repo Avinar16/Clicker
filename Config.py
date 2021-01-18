@@ -13,6 +13,7 @@ class Config:
             reader = csv.DictReader(config_file, delimiter=';', quotechar='"')
             self.config = list(reader)
             self.backup = copy.deepcopy(self.config)
+            print(self.backup)
 
     def saveConfig(self):
         with open(self.filename, 'w', encoding='utf-8', newline='') as config_file:
@@ -37,11 +38,21 @@ class Config:
 
     def load_preset(self):
         with open(self.filename, 'w', encoding='utf-8', newline='') as config_file:
-            preset = open('data/preset.csv')
-            self.config = list(csv.DictReader(preset, delimiter=';', quotechar='"'))
-            self.saveConfig()
+            preset_file = open('data\preset.csv', 'r', encoding='utf-8', newline='')
+            reader = csv.DictReader(preset_file, delimiter=';', quotechar='"')
+            preset = list(reader)
+            self.config = copy.deepcopy(preset)
+            self.setValue('running', False)
+            # print(self.config)
 
-            print('Loaded preset')
+            writer = csv.DictWriter(config_file, fieldnames=self.config[0].keys(), delimiter=";")
+            writer.writeheader()
+            writer.writerows(self.config)
+
+        cnf = open('config.csv', 'r', encoding='utf-8', newline='')
+        reader1 = csv.DictReader(cnf, delimiter=';', quotechar='"')
+        print(list(reader1))
+        print('Loaded preset')
 
 
 config = Config('config.csv')
