@@ -35,8 +35,6 @@ running = True
 while running:
 
     running = bool(config.getValue('running'))
-    if not running:
-        print(running)
     time = pygame.time.get_ticks() // 1000
     start_time = 0
 

@@ -58,7 +58,6 @@ class Base_scene():
                         config.setValue(self.shop_type, ' '.join(map(str, bonus_config)), index=config_id)
 
                     config.setValue('coins', self.money)
-                    print(config.getValue('coins'))
                 config_id += 1
 
     def add_coin_per_sec(self):

@@ -13,7 +13,6 @@ class Config:
             reader = csv.DictReader(config_file, delimiter=';', quotechar='"')
             self.config = list(reader)
             self.backup = copy.deepcopy(self.config)
-            print(self.backup)
 
     def saveConfig(self):
         with open(self.filename, 'w', encoding='utf-8', newline='') as config_file:
@@ -49,6 +48,7 @@ class Config:
             writer = csv.DictWriter(config_file, fieldnames=self.config[0].keys(), delimiter=";")
             writer.writeheader()
             writer.writerows(self.config)
+            print('Loaded preset')
 
 
 config = Config('config.csv')
