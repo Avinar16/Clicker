@@ -27,7 +27,7 @@ class Foundation_scene(Base_scene):
 
         self.screen.blit(frame, (953, 300))
         click_power = config.getValue('damage')
-        draw_text(self.screen, f'{click_power}$/per click', 30, 1130, 320, font=True)
+        draw_text(self.screen, f'{click_power}/damage', 30, 1130, 320, font=True)
 
         # Read coins from file and blit on screen
         self.money = int(config.getValue('coins'))
@@ -44,4 +44,3 @@ class Foundation_scene(Base_scene):
     # annul score (for tests)
     def cleanup(self):
         config.load_backup()
-

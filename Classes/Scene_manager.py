@@ -42,7 +42,8 @@ class Scene_manager():
         elif 1082 > mouse_x >= 800 and 850 > mouse_y >= 700:
             if self.scene_id == 1:
                 self.scenes[self.scene_id].activate_timer()
-                self.scenes[self.scene_id].add_hits()
+                if not self.get_fight().get_screenstate():
+                    self.scenes[self.scene_id].add_hits()
 
     def render(self, mouse_point):
         # Render current scene

@@ -30,6 +30,7 @@ class Config:
         return self.config[index][param_name]
 
     def load_backup(self):
+        # for tests
         with open(self.filename, 'w', encoding='utf-8', newline='') as config_file:
             writer = csv.DictWriter(config_file, fieldnames=self.config[0].keys(), delimiter=";")
             writer.writeheader()
@@ -37,22 +38,17 @@ class Config:
             print('Loaded backup')
 
     def load_preset(self):
+        # loading 'zero' settings after win
         with open(self.filename, 'w', encoding='utf-8', newline='') as config_file:
             preset_file = open('data\preset.csv', 'r', encoding='utf-8', newline='')
             reader = csv.DictReader(preset_file, delimiter=';', quotechar='"')
             preset = list(reader)
             self.config = copy.deepcopy(preset)
             self.setValue('running', False)
-            # print(self.config)
 
             writer = csv.DictWriter(config_file, fieldnames=self.config[0].keys(), delimiter=";")
             writer.writeheader()
             writer.writerows(self.config)
-
-        cnf = open('config.csv', 'r', encoding='utf-8', newline='')
-        reader1 = csv.DictReader(cnf, delimiter=';', quotechar='"')
-        print(list(reader1))
-        print('Loaded preset')
 
 
 config = Config('config.csv')

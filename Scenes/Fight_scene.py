@@ -62,6 +62,9 @@ class Fight_scene(Base_scene):
             power_hit = int(config.getValue('damage'))
             config.setValue('enemy', self.get_enemy + '/' + str((self.boss_hp - power_hit)))
 
+    def get_screenstate(self):
+        return (self.win or self.lose)
+
     def get_win(self):
         return self.win
 
@@ -119,8 +122,10 @@ class Fight_scene(Base_scene):
         if self.level_id == 1:
             config.setValue('hero', 'Joseph')
             config.setValue('enemy', 'Kars/20000')
+            self.boss_hp_start = int(config.getValue('enemy').split('/')[1])
         elif self.level_id == 2:
             config.setValue('hero', 'Jotaro')
             config.setValue('enemy', 'DIO/50000')
+            self.boss_hp_start = int(config.getValue('enemy').split('/')[1])
         self.stop_music()
         self.win = False

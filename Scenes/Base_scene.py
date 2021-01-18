@@ -28,13 +28,16 @@ class Base_scene():
     def check_buying(self):
         config_id = 0
         self.money = int(config.getValue('coins'))
+        # looping through buttons
         for button in self.buttons:
             if button.get_button_name() == 'Buy_button':
                 if button.rect.collidepoint(self.mouse_pos) and self.pressed1 and self.able_to_buy:
+                    # buy logic
                     self.able_to_buy = False
-                    print(self.money)
                     bonus_config = list(map(lambda x: int(x),
                                             config.getValue(self.shop_type, config_id).split(' ')))
+
+                    # fond bonus logic
                     if self.money >= bonus_config[1] and self.shop_type == 'bonus_fond':
                         self.money -= bonus_config[1]
                         bonus_config[2] += 1
@@ -42,15 +45,18 @@ class Base_scene():
                         curent_pps = int(config.getValue('pps'))
                         config.setValue('pps', curent_pps + bonus_config[0])
                         config.setValue(self.shop_type, ' '.join(map(str, bonus_config)), index=config_id)
-                    elif self.money >= bonus_config[1] and (self.shop_type == 'bonus_fight'\
-                                            or self.shop_type == 'bonus_fight2' or self.shop_type == 'bonus_fight3') \
-                        and bonus_config[2] < 1:
+
+                    # fight bonus logic
+                    elif self.money >= bonus_config[1] and (self.shop_type == 'bonus_fight' \
+                                                            or self.shop_type == 'bonus_fight2' \
+                                                            or self.shop_type == 'bonus_fight3') \
+                            and bonus_config[2] < 1:
                         self.money -= bonus_config[1]
                         bonus_config[2] += 1
                         curent_damage = int(config.getValue('damage'))
                         config.setValue('damage', curent_damage + bonus_config[0])
                         config.setValue(self.shop_type, ' '.join(map(str, bonus_config)), index=config_id)
-                    print(self.money)
+
                     config.setValue('coins', self.money)
                     print(config.getValue('coins'))
                 config_id += 1
