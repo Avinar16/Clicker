@@ -125,7 +125,7 @@ class Fight_scene(Base_scene):
             self.boss_hp_start = int(config.getValue('enemy').split('/')[1])
         elif self.level_id == 2:
             config.setValue('hero', 'Jotaro')
-            config.setValue('enemy', 'DIO/50000')
+            config.setValue('enemy', 'DIO/40000')
             self.boss_hp_start = int(config.getValue('enemy').split('/')[1])
         self.stop_music()
         self.win = False
