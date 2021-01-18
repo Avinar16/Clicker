@@ -17,7 +17,7 @@ class Base_scene():
         self.money = int(config.getValue('coins'))
 
     # Base class render
-    def render(self, shop_filename):
+    def base_render(self, shop_filename):
         # Positions for colliders
         self.mouse_pos = pygame.mouse.get_pos()
         # clicks position

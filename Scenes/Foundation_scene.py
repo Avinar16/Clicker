@@ -33,7 +33,7 @@ class Foundation_scene(Base_scene):
         self.money = int(config.getValue('coins'))
         draw_text(self.screen, f'{numbers_to_text(self.money)}$', 64, 915, 115, font=True)
         # Base_scene render
-        super().render('found_shop')
+        self.base_render('found_shop')
 
     def add_coin(self):
         if self.is_click_enabled:

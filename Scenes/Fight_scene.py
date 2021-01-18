@@ -50,11 +50,11 @@ class Fight_scene(Base_scene):
                 draw_text(self.screen, 'Boss hp:', 50, 1700, 900, font=True)
                 draw_text(self.screen, str(self.boss_hp), 50, 1750, 950, font=True)
         if self.level_id == 0:
-            super().render('fight_shop')
+            self.base_render('fight_shop')
         elif self.level_id == 1:
-            super().render('fight_shop_level1')
+            self.base_render('fight_shop_level1')
         elif self.level_id == 2:
-            super().render('fight_shop_level2')
+            self.base_render('fight_shop_level2')
 
     def add_hits(self):
         if self.check_fight:
